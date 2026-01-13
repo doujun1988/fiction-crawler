@@ -36,9 +36,11 @@ namespace ConsoleApp
             _httpClient.DefaultRequestHeaders.Referrer = new Uri(sourceUrl);
             _httpClient.DefaultRequestHeaders.Accept.ParseAdd("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             _httpClient.DefaultRequestHeaders.AcceptLanguage.ParseAdd("zh-CN,zh;q=0.9");
+
             #endregion
 
             #region 获取章节列表
+
             var byts = await _httpClient.GetByteArrayAsync(url);
             var html = Encoding.GetEncoding("GBK").GetString(byts);
             var doc = new HtmlDocument();
@@ -63,9 +65,10 @@ namespace ConsoleApp
                 Console.WriteLine("尚未读取到目录");
                 return;
             }
+
             #endregion
 
-            #region 下载内容
+            #region 下载章节内容
             if (File.Exists(fileName))
             {
                 Console.WriteLine($"删除旧数据:{fileName}");
@@ -139,7 +142,5 @@ namespace ConsoleApp
             }
             return string.Empty;
         }
-
-
     }
 }
